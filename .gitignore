@@ -12,3 +12,4 @@ venv/lib64
 *.cfg
 venv/bin/pylupdate6
 venv/bin/pyuic6
+.vscode/settings.json
