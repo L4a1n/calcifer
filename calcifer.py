@@ -1,8 +1,6 @@
-import sys
+import sys, math
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QLineEdit
-from PyQt6.QtGui import QPalette, QColor, QFontMetrics, QGuiApplication
-import math
-
+from PyQt6.QtGui import QPalette, QColor, QFontMetrics
 
 # Create a class that inherits from QWidget
 class Init_QWidget(QWidget):
@@ -11,7 +9,7 @@ class Init_QWidget(QWidget):
     def event(self, event):
         return super().event(event)
 
-               
+
 class Calcifer():
     def __init__(self):
         # Create an instance of QApplication
@@ -49,27 +47,33 @@ class Calcifer():
         # Create a label for the History
         # Move the label to a specific position
         # Set the color and font size of the label
+        # Set the width and height of the label
         self.history_lbl = QLabel("<h1> Output History... </h1>", parent=self.window)
         self.history_lbl.move(20, 130)
         self.history_lbl.setStyleSheet("color: #93a1a1; font-size: 12px;")
+        self.history_lbl.setFixedWidth(280)
+        self.history_lbl.setFixedHeight(280)
 
     def calculate_and_update(self, text):
         # Calculate the result of the expression
         try:
+            # If the expression is valid, calculate the result
             result = str(eval(text, {"__builtins__": None}, {"math": math}))
+        # If the expression is invalid, set the result to custome text
         except Exception as e:
             if text == "":
                 result = "0"
+            elif text == "help":
+                result = "OPERATORS:"
+                self.history_lbl.setText("+ Addition \n - Subtraction \n * Multiplication\n / Division\n ** Potentiate")
             else:
                 result = text
-    
+
         # Update the text of the output label
         self.output_lbl.setText("<h1>" + result + "</h1>")
-    
         # Calculate the width of the text
         font_metrics = QFontMetrics(self.output_lbl.font())
         text_width = font_metrics.horizontalAdvance(result)
-    
         # Set the width of the label
         self.output_lbl.setFixedWidth(text_width*3)
 
@@ -77,7 +81,7 @@ class Calcifer():
         # Create an input box
         # Move the input box to a specific position
         # Set the color and font size of the input box and remove the border
-        # Connect the input box to the update_output_lbl() method
+        # Connect the input box to the calculate_and_update() method
         self.inputBox = QLineEdit(self.window)
         self.inputBox.setGeometry(20, 10, 160, 60)
         self.inputBox.setStyleSheet("border: none; background-color: #002b36; color: #93a1a1; font-size: 20px;")
@@ -86,6 +90,9 @@ class Calcifer():
 
 # Create an instance of the Calcifer class
 calcifer = Calcifer()    
+
+
+# ignore that stuff...
 
 #002b36 
 # primary 1
