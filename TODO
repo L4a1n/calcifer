@@ -1,3 +1,5 @@
-- create a function in the Calcifer class that calculates the current input_box value
-- print out the calculated value to the Outpu_Label
 - creating a function that after you hit enter, clears the current calculation and puts it into history
+- help menu
+- add cool font
+- create a config file
+- make the layout more responsive to change in windows size
