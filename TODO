@@ -1,0 +1,3 @@
+- create a function in the Calcifer class that calculates the current input_box value
+- print out the calculated value to the Outpu_Label
+- creating a function that after you hit enter, clears the current calculation and puts it into history
