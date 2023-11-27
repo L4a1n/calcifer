@@ -2,6 +2,12 @@ import sys, math
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QLineEdit
 from PyQt6.QtGui import QPalette, QColor, QFontMetrics
 
+
+class load_config():
+    def __init__(self):
+        pass
+
+
 # Create a class that inherits from QWidget
 class Init_QWidget(QWidget):
     def __init__(self):
