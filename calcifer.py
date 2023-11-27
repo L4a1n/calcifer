@@ -46,6 +46,7 @@ class Calcifer():
         self.window.show()
         sys.exit(self.app.exec())
 
+
     def init_lbl(self):
         # Create a label for the Output
         # Move the label to a specific position
@@ -53,6 +54,7 @@ class Calcifer():
         self.output_lbl = QLabel("<h1> 0 </h1>", parent=self.window)
         self.output_lbl.move(20, 80)
         self.output_lbl.setStyleSheet("color: #93a1a1; font-size: 20px;")
+
         # Create a label for the History
         # Move the label to a specific position
         # Set the color and font size of the label
@@ -62,6 +64,7 @@ class Calcifer():
         self.history_lbl.setStyleSheet("color: #93a1a1;")
         self.history_lbl.setFixedWidth(280)
         self.history_lbl.setFixedHeight(500)
+
 
     def calculate_and_update(self, text):
         # Calculate the result of the expression
@@ -86,6 +89,7 @@ class Calcifer():
         # Set the width of the label
         self.output_lbl.setFixedWidth(text_width*3)
 
+
     def update_history(self):
         # Get the text of the input box
         # Get the text of the output label
@@ -98,6 +102,7 @@ class Calcifer():
         result = result.replace("</h1>", "")
         temp = f"{text}={result}"
         self.history.append(temp)
+
         # Check if the history list has one or less items
         # If it does, join the items without HTML tags
         # Else, join the items with HTML tags
@@ -105,9 +110,11 @@ class Calcifer():
             history_str = "".join(self.history)
         else:
             history_str = "<h1>".join(self.history)+"</h1>"
+
         # Set the text of the history label to the joined string
         self.history_lbl.setText(history_str)
     
+
     def init_input(self):
         # Create an input box
         # Move the input box to a specific position
@@ -119,6 +126,7 @@ class Calcifer():
         self.inputBox.setStyleSheet("border: none; background-color: #002b36; color: #93a1a1; font-size: 20px;")
         self.inputBox.textChanged.connect(self.calculate_and_update)
         self.inputBox.returnPressed.connect(self.update_history)
+
 
 # Create an instance of the Calcifer class
 calcifer = Calcifer()    

@@ -1,4 +1,4 @@
-- clear current input after enter and replace input with output value
+- clear curent input after enter and replace input with output value
 - fix fonts in history_lbl
 - makes only newest history appear
 - help menu
