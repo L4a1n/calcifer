@@ -27,14 +27,12 @@ class Calcifer():
         self.window = Init_QWidget()
         self.window.setWindowTitle("Calcifer")
         self.window.setGeometry(100, 100, 320, 420)
-
         # Create a palette
         # Set the color for the Window role to a custom color
         # Apply the palette to the window
         self.palette = QPalette()
         self.palette.setColor(QPalette.ColorRole.Window, QColor("#002b36"))
         self.window.setPalette(self.palette)
-
         # Call the init_lbl() 
         # and init_input() methods
         # init the history list
@@ -54,7 +52,6 @@ class Calcifer():
         self.output_lbl = QLabel("<h1> 0 </h1>", parent=self.window)
         self.output_lbl.move(20, 80)
         self.output_lbl.setStyleSheet("color: #93a1a1; font-size: 20px;")
-
         # Create a label for the History
         # Move the label to a specific position
         # Set the color and font size of the label
@@ -80,7 +77,6 @@ class Calcifer():
                 self.history_lbl.setText("+ Addition \n - Subtraction \n * Multiplication\n / Division\n ** Potentiate")
             else:
                 result = text
-
         # Update the text of the output label
         self.output_lbl.setText("<h1>"+result+"</h1>")
         # Calculate the width of the text
@@ -102,7 +98,6 @@ class Calcifer():
         result = result.replace("</h1>", "")
         temp = f"{text}={result}"
         self.history.append(temp)
-
         # Check if the history list has one or less items
         # If it does, join the items without HTML tags
         # Else, join the items with HTML tags
@@ -110,7 +105,6 @@ class Calcifer():
             history_str = "".join(self.history)
         else:
             history_str = "<h1>".join(self.history)+"</h1>"
-
         # Set the text of the history label to the joined string
         self.history_lbl.setText(history_str)
     
