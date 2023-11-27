@@ -30,10 +30,12 @@ class Calcifer():
 
         # Call the init_lbl() 
         # and init_input() methods
+        # innit the history list
         # Show the window
         # Exit the application upon closing the window
         self.init_input()
         self.init_lbl()
+        self.history = []
         self.window.show()
         sys.exit(self.app.exec())
 
@@ -48,18 +50,18 @@ class Calcifer():
         # Move the label to a specific position
         # Set the color and font size of the label
         # Set the width and height of the label
-        self.history_lbl = QLabel("<h1> Output History... </h1>", parent=self.window)
+        self.history_lbl = QLabel("", parent=self.window)
         self.history_lbl.move(20, 130)
-        self.history_lbl.setStyleSheet("color: #93a1a1; font-size: 12px;")
+        self.history_lbl.setStyleSheet("color: #93a1a1;")
         self.history_lbl.setFixedWidth(280)
-        self.history_lbl.setFixedHeight(280)
+        self.history_lbl.setFixedHeight(500)
 
     def calculate_and_update(self, text):
         # Calculate the result of the expression
         try:
             # If the expression is valid, calculate the result
             result = str(eval(text, {"__builtins__": None}, {"math": math}))
-        # If the expression is invalid, set the result to custome text
+        # If the expression is invalid, set the result to custom text
         except Exception as e:
             if text == "":
                 result = "0"
@@ -70,13 +72,31 @@ class Calcifer():
                 result = text
 
         # Update the text of the output label
-        self.output_lbl.setText("<h1>" + result + "</h1>")
+        self.output_lbl.setText("<h1>"+result+"</h1>")
         # Calculate the width of the text
         font_metrics = QFontMetrics(self.output_lbl.font())
         text_width = font_metrics.horizontalAdvance(result)
         # Set the width of the label
         self.output_lbl.setFixedWidth(text_width*3)
 
+    def update_history(self):
+        # Get the text of the input box
+        # Get the text of the output label
+        # Add the expression and result to the history list
+        # Create a string from the history list
+        # Update the text of the history label
+        text = self.inputBox.text()
+        result = self.output_lbl.text()
+        result = result.replace("<h1>", "")
+        result = result.replace("</h1>", "")
+        temp = f"{text}={result}"
+        self.history.append(temp)
+        if len(self.history) <= 1:
+            history_str = "".join(self.history)
+        else:
+            history_str = "<h1>".join(self.history)+"</h1>"
+        self.history_lbl.setText(history_str)
+    
     def init_input(self):
         # Create an input box
         # Move the input box to a specific position
@@ -86,7 +106,7 @@ class Calcifer():
         self.inputBox.setGeometry(20, 10, 160, 60)
         self.inputBox.setStyleSheet("border: none; background-color: #002b36; color: #93a1a1; font-size: 20px;")
         self.inputBox.textChanged.connect(self.calculate_and_update)
-
+        self.inputBox.returnPressed.connect(self.update_history)
 
 # Create an instance of the Calcifer class
 calcifer = Calcifer()    

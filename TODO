@@ -1,4 +1,5 @@
 - creating a function that after you hit enter, clears the current calculation and puts it into history
+- makes only newest history appear
 - help menu
 - add cool font
 - create a config file
