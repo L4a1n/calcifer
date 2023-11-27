@@ -10,6 +10,7 @@ class Init_QWidget(QWidget):
         return super().event(event)
 
 
+# Main class
 class Calcifer():
     def __init__(self):
         # Create an instance of QApplication
@@ -30,7 +31,7 @@ class Calcifer():
 
         # Call the init_lbl() 
         # and init_input() methods
-        # innit the history list
+        # init the history list
         # Show the window
         # Exit the application upon closing the window
         self.init_input()
@@ -82,19 +83,23 @@ class Calcifer():
     def update_history(self):
         # Get the text of the input box
         # Get the text of the output label
-        # Add the expression and result to the history list
-        # Create a string from the history list
-        # Update the text of the history label
+        # Remove the HTML tags from the output label text
+        # Add the expression and result to temp string
+        # Append the temp string to the history list
         text = self.inputBox.text()
         result = self.output_lbl.text()
         result = result.replace("<h1>", "")
         result = result.replace("</h1>", "")
         temp = f"{text}={result}"
         self.history.append(temp)
+        # Check if the history list has one or less items
+        # If it does, join the items without HTML tags
+        # Else, join the items with HTML tags
         if len(self.history) <= 1:
             history_str = "".join(self.history)
         else:
             history_str = "<h1>".join(self.history)+"</h1>"
+        # Set the text of the history label to the joined string
         self.history_lbl.setText(history_str)
     
     def init_input(self):
@@ -102,6 +107,7 @@ class Calcifer():
         # Move the input box to a specific position
         # Set the color and font size of the input box and remove the border
         # Connect the input box to the calculate_and_update() method
+        # Connect the input box to the update_history() method when the return/enter key is pressed
         self.inputBox = QLineEdit(self.window)
         self.inputBox.setGeometry(20, 10, 160, 60)
         self.inputBox.setStyleSheet("border: none; background-color: #002b36; color: #93a1a1; font-size: 20px;")
