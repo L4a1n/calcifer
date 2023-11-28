@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QLineEdit
 from PyQt6.QtGui import QPalette, QColor, QFontMetrics
 
 
+# Class that loads the config file
 class load_config():
     def __init__(self):
         pass
@@ -38,8 +39,8 @@ class Calcifer():
         # init the history list
         # Show the window
         # Exit the application upon closing the window
-        self.init_input()
         self.init_lbl()
+        self.init_input()
         self.history = []
         self.window.show()
         sys.exit(self.app.exec())
@@ -81,8 +82,7 @@ class Calcifer():
         self.output_lbl.setText("<h1>"+result+"</h1>")
         # Calculate the width of the text
         font_metrics = QFontMetrics(self.output_lbl.font())
-        text_width = font_metrics.horizontalAdvance(result)
-        # Set the width of the label
+        text_width = font_metrics.horizontalAdvance(result)        # Set the width of the label
         self.output_lbl.setFixedWidth(text_width*3)
 
 
@@ -94,20 +94,25 @@ class Calcifer():
         # Append the temp string to the history list
         text = self.inputBox.text()
         result = self.output_lbl.text()
-        result = result.replace("<h1>", "")
-        result = result.replace("</h1>", "")
-        temp = f"{text}={result}"
+        result = result.replace("<h1>", "").replace("</h1>", "")
+        temp = f"<h4>{text}={result}</h4>"
         self.history.append(temp)
-        # Check if the history list has one or less items
-        # If it does, join the items without HTML tags
-        # Else, join the items with HTML tags
-        if len(self.history) <= 1:
-            history_str = "".join(self.history)
-        else:
-            history_str = "<h1>".join(self.history)+"</h1>"
+        # Reverse the history list
+        # Join the reversed history list to a string
+        history_reversed = list(reversed(self.history))
+        history_list = "".join(history_reversed)
         # Set the text of the history label to the joined string
-        self.history_lbl.setText(history_str)
+        self.history_lbl.setText(history_list)
     
+
+    def change_input(self):
+        # Get the text of the output label
+        # Remove the HTML tags from the output label text
+        # Set the text of the output label to the input box text
+        temp = self.output_lbl.text()
+        temp = temp.replace("<h1>", "").replace("</h1>", "")
+        self.inputBox.setText(temp)
+
 
     def init_input(self):
         # Create an input box
@@ -120,7 +125,7 @@ class Calcifer():
         self.inputBox.setStyleSheet("border: none; background-color: #002b36; color: #93a1a1; font-size: 20px;")
         self.inputBox.textChanged.connect(self.calculate_and_update)
         self.inputBox.returnPressed.connect(self.update_history)
-
+        self.inputBox.returnPressed.connect(self.change_input)
 
 # Create an instance of the Calcifer class
 calcifer = Calcifer()    
