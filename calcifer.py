@@ -69,6 +69,7 @@ class Calcifer():
         try:
             # If the expression is valid, calculate the result
             result = str(eval(text, {"__builtins__": None}, {"math": math}))
+        # This Part needs some work
         # If the expression is invalid, set the result to custom text
         except Exception as e:
             if text == "":
@@ -82,7 +83,8 @@ class Calcifer():
         self.output_lbl.setText("<h1>"+result+"</h1>")
         # Calculate the width of the text
         font_metrics = QFontMetrics(self.output_lbl.font())
-        text_width = font_metrics.horizontalAdvance(result)        # Set the width of the label
+        text_width = font_metrics.horizontalAdvance(result)        
+        # Set the width of the label
         self.output_lbl.setFixedWidth(text_width*3)
 
 
