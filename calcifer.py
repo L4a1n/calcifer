@@ -1,12 +1,38 @@
-import sys, math
+import sys, os, math
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QLineEdit
 from PyQt6.QtGui import QPalette, QColor, QFontMetrics
 
 
 # Class that loads the config file
-class load_config():
+class Load_Config():
     def __init__(self):
-        pass
+        self.config_file = "config"
+        self.load_file()
+
+    def load_file(self):
+        if not os.path.exists(self.config_file):
+            self.create_file()
+
+        with open(self.config_file, "r") as file:
+            config_data = file.read()
+            # Process the config data as needed
+
+    def create_file(self):
+        # Create a new config file with default values
+        config_data = """
+size=(320, 420)
+last_position=(0, 0)
+bg_color=#002b36
+input_lbl_color=value4
+input_lbl_font=
+output_lbl_color=value6
+output_lbl_font=value7
+history_lbl_color=value8
+history_lbl_font=value9
+"""
+
+        with open(self.config_file, "w") as file:
+            file.write(config_data)
 
 
 # Create a class that inherits from QWidget
@@ -20,6 +46,7 @@ class Init_QWidget(QWidget):
 # Main class
 class Calcifer():
     def __init__(self):
+        self.call_config = Load_Config()
         # Create an instance of QApplication
         # Create a window
         # Set the window title
@@ -130,7 +157,8 @@ class Calcifer():
         self.inputBox.returnPressed.connect(self.change_input)
 
 # Create an instance of the Calcifer class
-calcifer = Calcifer()    
+if __name__ == "__main__":
+    calcifer = Calcifer()    
 
 
 # ignore that stuff...

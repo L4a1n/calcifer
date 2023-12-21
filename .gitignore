@@ -14,3 +14,4 @@ venv/bin/pylupdate6
 venv/bin/pyuic6
 .vscode/settings.json
 Other/calcifer.xcf
+config
